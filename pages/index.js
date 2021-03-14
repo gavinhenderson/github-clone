@@ -2,9 +2,11 @@
  * Source: https://github.com/vercel/next-learn-starter/blob/master/learn-starter/pages/index.js
  */
 
-import Head from 'next/head'
+import Head from "next/head";
+import getTimeline from "../lib/get-timeline";
+import config from "../lib/config";
 
-export default function Home() {
+export default function Home({ feed }) {
   return (
     <div className="container">
       <Head>
@@ -58,7 +60,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
         </a>
       </footer>
@@ -209,5 +211,14 @@ export default function Home() {
         }
       `}</style>
     </div>
-  )
+  );
+}
+
+export async function getServerSideProps() {
+  const feed = await getTimeline({
+    githubToken: config.githubToken,
+    username: config.username,
+  });
+
+  return { props: { feed } };
 }
