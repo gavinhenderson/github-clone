@@ -16,6 +16,7 @@
   "dependencies": {
     "@babel/preset-react": "^7.12.13",
     "@octokit/rest": "^18.3.5",
+    "@storybook/addon-controls": "^6.1.21",
     "babel-jest": "^26.6.3",
     "jest": "^26.6.3",
     "next": "^10.0.8",

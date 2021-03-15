@@ -1,12 +1,20 @@
 module.exports = {
-  stories: ["../**/*.stories.@(js|jsx|ts|tsx)"],
-  addons: ["@storybook/addon-links", "@storybook/addon-essentials"],
+  stories: ['../**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-controls',
+  ],
   webpackFinal: async (config) => {
-    config.output.publicPath = "/storybook/";
+    if (config.mode != 'development') {
+      config.output.publicPath = '/storybook/';
+    }
     return config;
   },
   managerWebpack: async (config) => {
-    config.output.publicPath = "/storybook/";
+    if (config.mode != 'development') {
+      config.output.publicPath = '/storybook/';
+    }
     return config;
   },
 };
