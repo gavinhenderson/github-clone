@@ -1,18 +1,16 @@
-import React from "react";
-
-import Card from "./activity-card";
+import ActivityCard from "./activity-card";
 
 export default {
-  title: "Card",
-  component: Card,
+  title: "ActivityCard",
+  component: ActivityCard,
 };
 
-const Template = (args) => <Card {...args} />;
-
-export const LoggedIn = Template.bind({});
-LoggedIn.args = {
-  user: {},
+export const StarredRepo = () => {
+  return (
+    <ActivityCard
+      username="Gavin Henderson"
+      activity="starred"
+      repoPath="gavinhenderson/gavinhenderson.me"
+    ></ActivityCard>
+  );
 };
-
-export const LoggedOut = Template.bind({});
-LoggedOut.args = {};

@@ -1,5 +1,9 @@
-const Card = () => {
-  return <h1>Test</h1>;
+const Card = ({ username, activity, repoPath }) => {
+  return (
+    <p>
+      {username} {activity} {repoPath}
+    </p>
+  );
 };
 
 export default Card;
