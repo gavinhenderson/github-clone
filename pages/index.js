@@ -2,9 +2,10 @@
  * Source: https://github.com/vercel/next-learn-starter/blob/master/learn-starter/pages/index.js
  */
 
-import Head from "next/head";
-import getTimeline from "../lib/get-timeline";
-import config from "../lib/config";
+import Head from 'next/head';
+import getTimeline from '../lib/get-timeline';
+import config from '../lib/config';
+import ActivityCard from '../components/activity-card';
 
 export default function Home({ feed }) {
   return (
@@ -15,6 +16,13 @@ export default function Home({ feed }) {
       </Head>
 
       <main>
+        <ActivityCard
+          username="test"
+          activity="test"
+          repoPathd="test"
+          userId="test"
+          timeSince="test"
+        ></ActivityCard>
         <h1 className="title">
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
@@ -60,7 +68,7 @@ export default function Home({ feed }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{" "}
+          Powered by{' '}
           <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
         </a>
       </footer>
