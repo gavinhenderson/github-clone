@@ -44,7 +44,7 @@ const ActivityCard = ({ username, activity, repoPath, userId, timeSince }) => {
 
         .tagline-link {
           font-weight: 600;
-          color: #0366d6;
+          color: #24292e;
           text-decoration: none;
         }
 
