@@ -40,23 +40,28 @@ export async function getServerSideProps() {
     username: config.username,
   });
 
-  const feedAsProps = feed
-    .filter((activityItem) => {
-      const isWatchEvent = activityItem.type === 'WatchEvent';
-      const isStarEvent = activityItem.payload.action === 'started';
-      return isWatchEvent && isStarEvent;
-    })
-    .map((activityItem) => {
-      return {
-        username: activityItem.actor.display_login,
-        userId: activityItem.actor.id,
-        repoPath: activityItem.repo.name,
-        activity: 'starred',
-        timeSince: timeStampToRelativeTime(activityItem.created_at),
-      };
-    });
+  const filterActivities = (activityItem) => {
+    const isWatchEvent = activityItem.type === 'WatchEvent';
+    const isStarEvent = activityItem.payload.action === 'started';
+    return isWatchEvent && isStarEvent;
+  };
 
-  console.log({ feedAsProps });
+  const feedAsProps = feed.filter(filterActivities).map((activityItem) => {
+    return {
+      username: activityItem.actor.display_login,
+      userId: activityItem.actor.id,
+      repoPath: activityItem.repo.name,
+      activity: 'starred',
+      timeSince: timeStampToRelativeTime(activityItem.created_at),
+    };
+  });
+
+  if (feedAsProps.length !== feed.length) {
+    console.warn(
+      'You dropped some events',
+      feed.filter((activity) => !filterActivities(activity))
+    );
+  }
 
   return { props: { feed: feedAsProps } };
 }
