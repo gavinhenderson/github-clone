@@ -20,21 +20,41 @@ export default function Home({ feed }) {
 
       <main>
         {feed.map(
-          ({ username, userId, repoPath, activity, timeSince, repo }) => {
+          (
+            { username, userId, repoPath, activity, timeSince, repo },
+            index
+          ) => {
             return (
-              <ActivityCard
-                key={`${username}-${repoPath}-${activity}`}
-                username={username}
-                activity={activity}
-                repoPath={repoPath}
-                userId={userId}
-                timeSince={timeSince}
-                repo={repo}
-              ></ActivityCard>
+              <>
+                {!!index && <hr></hr>}
+                <ActivityCard
+                  key={`${username}-${repoPath}-${activity}`}
+                  username={username}
+                  activity={activity}
+                  repoPath={repoPath}
+                  userId={userId}
+                  timeSince={timeSince}
+                  repo={repo}
+                ></ActivityCard>
+              </>
             );
           }
         )}
       </main>
+      <style jsx>{`
+        hr {
+          margin: 16px 0;
+          height: 1px;
+          color: #e1e4e8;
+          background-color: #e1e4e8;
+          border: none;
+        }
+
+        main {
+          width: 600px;
+          margin: 0 auto;
+        }
+      `}</style>
     </div>
   );
 }

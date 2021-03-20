@@ -99,6 +99,11 @@ const ActivityCard = ({
           align-items: center;
         }
 
+        .tagline-text > p {
+          margin-top: 0px;
+          margin-bottom: 0px;
+        }
+
         .time-since {
           color: rgb(106, 115, 125);
           font-size: 12px;
@@ -113,6 +118,7 @@ const ActivityCard = ({
         .tagline {
           display: flex;
           align-items: center;
+          margin-bottom: 4px;
         }
 
         .tagline-link {
