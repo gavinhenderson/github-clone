@@ -1,4 +1,4 @@
-import Star from './star';
+import Star from "./star";
 
 const ActivityCard = ({
   username,
@@ -6,7 +6,7 @@ const ActivityCard = ({
   repoPath,
   userId,
   timeSince,
-  repo: { description, language, stars, updated },
+  repo: { description, language, stars, updated, languageColour },
 }) => {
   return (
     <>
@@ -35,21 +35,17 @@ const ActivityCard = ({
         </a>
         <p className="repo-description">{description}</p>
         <div className="repo-info-row">
-          <div>
-            <span className="color-circle"></span>
-            <p className="language">{language}</p>
-          </div>
-          <div>
-            <Star />
-            <p className="stars">{stars}</p>
-          </div>
-          <p className="updated">Updated {updated}</p>
+          <span className="color-circle"></span>
+          <span className="language">{language}</span>
+          <Star />
+          <span className="stars">{stars}</span>
+          <span className="updated">Updated {updated}</span>
         </div>
       </div>
       <style jsx>{`
         .color-circle {
           display: inline-block;
-          background-color: #f1e05a;
+          background-color: ${languageColour};
           width: 12px;
           height: 12px;
           border: 1px solid rgba(27, 31, 35, 0.1);
@@ -59,11 +55,15 @@ const ActivityCard = ({
         .language {
           color: rgb(88, 96, 105);
           font-size: 12px;
+          margin-right: 16px;
+          margin-left: 4px;
         }
 
         .stars {
           color: rgb(88, 96, 105);
           font-size: 12px;
+          margin-right: 16px;
+          margin-left: 4px;
         }
 
         .updated {
@@ -73,11 +73,14 @@ const ActivityCard = ({
 
         .repo-info-row {
           display: flex;
+          align-items: center;
+          marin-top: 8px;
         }
 
         .repo-description {
           font-size: 14px;
           color: rgb(88, 96, 105);
+          margin: 4px 0 10px 0;
         }
 
         .repo-card {

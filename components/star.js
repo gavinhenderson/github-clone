@@ -1,11 +1,11 @@
-const Star = () => (
+const Star = ({ className }) => (
   <svg
-    class="octicon octicon-star mr-1"
     viewBox="0 0 16 16"
     version="1.1"
     width="16"
     height="16"
     aria-hidden="true"
+    fill="rgb(88, 96, 105)"
   >
     <path
       fill-rule="evenodd"
