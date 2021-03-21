@@ -25,10 +25,9 @@ export default function Home({ feed }) {
             index
           ) => {
             return (
-              <>
-                {!!index && <hr></hr>}
+              <div key={`${username}-${repoPath}-${activity}-hr`}>
+                {!!index && <hr />}
                 <ActivityCard
-                  key={`${username}-${repoPath}-${activity}`}
                   username={username}
                   activity={activity}
                   repoPath={repoPath}
@@ -36,7 +35,7 @@ export default function Home({ feed }) {
                   timeSince={timeSince}
                   repo={repo}
                 ></ActivityCard>
-              </>
+              </div>
             );
           }
         )}
@@ -65,19 +64,24 @@ export async function getServerSideProps() {
     username: config.username,
   });
 
+  const isStarredRepo = (activityItem) =>
+    activityItem.type === "WatchEvent" &&
+    activityItem.payload.action === "started";
+
+  const isCreatedRepo = (activityItem) => activityItem.type === "CreateEvent";
+
   const filterActivities = (activityItem) => {
-    const isWatchEvent = activityItem.type === "WatchEvent";
-    const isStarEvent = activityItem.payload.action === "started";
-    return isWatchEvent && isStarEvent;
+    return isStarredRepo(activityItem) || isCreatedRepo(activityItem);
   };
 
   const whitelistedFeedItems = feed.filter(filterActivities);
 
   if (whitelistedFeedItems.length !== feed.length) {
-    console.warn(
-      "You dropped some events",
-      feed.filter((activity) => !filterActivities(activity)).length
+    const droppedEvents = feed.filter(
+      (activity) => !filterActivities(activity)
     );
+
+    console.warn("You dropped some events", droppedEvents.length);
   }
 
   const repos = await getRepos({
@@ -86,7 +90,10 @@ export async function getServerSideProps() {
   });
 
   const feedAsProps = whitelistedFeedItems.map((activityItem) => {
-    const repo = repos.find((repo) => repo.id === activityItem.repo.id);
+    const repo = repos.find(
+      (repo) =>
+        repo.full_name.toLowerCase() === activityItem.repo.name.toLowerCase()
+    );
     const months = [
       "Jan",
       "Feb",
@@ -112,11 +119,15 @@ export async function getServerSideProps() {
       console.warn("No colour defined for: ", repo.language);
     }
 
+    const activity = isCreatedRepo(activityItem)
+      ? "created a repository"
+      : "starred";
+
     return {
       username: activityItem.actor.display_login,
       userId: activityItem.actor.id,
       repoPath: activityItem.repo.name,
-      activity: "starred",
+      activity,
       timeSince: timeStampToRelativeTime(activityItem.created_at),
       repo: {
         language: repo.language,
