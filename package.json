@@ -33,10 +33,10 @@
   "devDependencies": {
     "@babel/core": "7.14.6",
     "@babel/preset-env": "7.14.5",
-    "@storybook/addon-actions": "6.2.9",
-    "@storybook/addon-essentials": "6.2.9",
-    "@storybook/addon-links": "6.2.9",
-    "@storybook/react": "6.2.9",
+    "@storybook/addon-actions": "6.5.16",
+    "@storybook/addon-essentials": "6.5.16",
+    "@storybook/addon-links": "6.5.16",
+    "@storybook/react": "6.5.16",
     "babel-loader": "8.2.2"
   }
 }
